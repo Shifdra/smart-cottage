@@ -1,19 +1,18 @@
 <html>
 <body>
 <?php
+    require_once "../DatabaseClasses/DBManager.php";
+    require_once "../DatabaseClasses/DBConnection.php";
     class Account {
-        private $username, $password;
         
-        public function __construct($username, $password) {
-            $this->username = $username;
-            $this->password = $password;
+        public function __construct() {
         }
         
         public function __destruct() {
         }
         
-        public function getAvgSpent($retailerName) {
-            echo "average spent";
+        public function getAvgSpent($retailername) {
+            echo $retailername;
         }
     }
 ?>

@@ -4,6 +4,7 @@
     class DBManager {
         
         private $dbconn;
+        private $results = array();
         
         public function __construct($servername, $username, $password, $dbname) {
             $this->dbconn = new DBConnection($servername, $username, $password, $dbname);
@@ -55,7 +56,7 @@
             }
         }
         
-        public function select(array $columns) {
+        public function select(array $columns, array $conditional) {
             try {
                 //open database connection
                 $this->dbconn->open();
@@ -74,14 +75,8 @@
                 $stmt = $this->dbconn->getConnection()->prepare("SELECT $selectColumns FROM usertb");
                 $stmt->execute();
                 
-                //fetch results from query
-                //dynamic with number of columns in table
-                $colcount = $stmt->columnCount();
-                while($row = $stmt->fetch(PDO::FETCH_NUM)) {
-                    for($i = 0; $i < $colcount; $i++) {
-                        echo "|" . $row[$i];
-                    }
-                    echo "</br>";
+                while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+                    
                 }
                 
                 $stmt = null;
@@ -91,6 +86,10 @@
             } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+        }
+        
+        public function returnresult() {
+            return $this->results;
         }
     }
     ?>
