@@ -33,7 +33,20 @@
     </nav>
     
     <div class="container">
-        <p>ADD FRIENDS//VIEW PERSONAL STATS</p>
+        <form class="form-horizontal" role="form">
+            <div class="col-md-6">
+                <h3>Add Friend</h3>
+                <label class="control-label" for="friend">Friend Username: </label>
+                <input type="text" class="form-control" id="friend">
+                <button type="button" class="btn btn-default top-space">Add</button> 
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Friend List</h3>
+                <select multiple class="form-control input-lg" size="5" id="list"></select>
+                <button type="button" class="btn btn-default top-space">Remove</button>           
+            </div>
+        </form>
     </div>
 </body>
 </html>
