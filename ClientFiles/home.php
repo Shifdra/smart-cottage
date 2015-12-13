@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="jquery-2.1.4.min.js"></script>
-    <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <script src="../ClientFiles/jquery-2.1.4.min.js"></script>
+    <script src="../ClientFiles/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../ClientFiles/bootstrap-3.3.6-dist/css/bootstrap.min.css">
     <title>Cart-Life</title>
+    <?php
+    session_start();
+    ?>
 </head>
 
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="home.html">Cart-Life</a>
+                <a class="navbar-brand" href="../ClientFiles/home.php">Cart-Life</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="home.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                    <li><a href="stats.html"><span class="glyphicon glyphicon-stats"></span> Statistics</a></li>
-                    <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a></li>
+                    <li class="active"><a href="../ClientFiles/home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <?php
+                    if (isset($_SESSION["loggedin"])) {
+                        echo "<li><a href='../ClientFiles/profile.php'><span class='glyphicon glyphicon-user'></span> Profile</a></li>
+                        <li><a href='../ClientFiles/stats.php'><span class='glyphicon glyphicon-stats'></span> Statistics</a></li>
+                        <li><a href='../ClientFiles/cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> My Cart</a></li>";
+                    }
+                    ?>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup.html"><span class="glyphicon glyphicon-flag"></span> Sign Up</a></li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <?php
+                    if (!isset($_SESSION["loggedin"])) {
+                        echo "<li><a href='../ClientFiles/signup.php'><span class='glyphicon glyphicon-flag'></span> Sign Up</a></li>
+                        <li><a href='../ClientFiles/login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
+                    } else {
+                        echo "<li><a href='../ClientFiles/ProcessLogoutRequest.php'><span class='glyphicon glyphicon-log-out'></span> Logout</a></li>";
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

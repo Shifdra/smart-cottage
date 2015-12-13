@@ -14,15 +14,13 @@
 class Order {
     
     private $orderItems;
-    private $storeName;
     private $username;
-    private $exists;
-    
-    public function __construct($storeName, $username) {
+    private $orderID;
+     
+    public function __construct($storeName, $orderID) {
         $this->orderItems = array();
         $this->storeName = $storeName;
-        $this->username = $username;
-        $this->exists = true;
+        $this->orderID = $orderID;
     }
     
     public function __destruct() {
@@ -30,12 +28,10 @@ class Order {
         $this->username = null;
     }
     
-    public function exists() {
-        return $this->exists;
-    }
-    
-    public function addOrderItemToOrder($orderItem) {
-        
+    public function addOrderItemToOrder(OrderItem $orderItem) {
+        $insertor = new DBInsert('localhost', 'root', '', 'mydb');
+        $insertor->insertNewOrderItem($this->orderID, $this->storeName, 
+                $orderItem->getItemName(), $orderItem->getQuantity(), $orderItem->getPrice());
     }
 
 }

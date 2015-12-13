@@ -69,16 +69,4 @@ $(document).ready(function() {
         sessionStorage.clear();
         location.reload();
     });
-    
-    
-    //add button clicked
-    $("#btn-add-item").click(function() {
-        
-    });
-    
-    
-    //remove button clicked
-    $("#btn-remove-item").click(function() {
-        
-    });
 });

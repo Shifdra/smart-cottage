@@ -12,14 +12,13 @@ class Table {
     
     public function echoTable() {
         
-        $table = '<table><tr>';
+        $table = '<table class="table-hover"><tr>';
         
         foreach ($this->columnNames as $columnName) {
             $table .= "<th>{$columnName}</th>";
         }
         
         $table .= '</tr>';
-        
         foreach($this->rows as $row) {
             $table .= '<tr>';
             foreach ($row as $column) {
