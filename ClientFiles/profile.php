@@ -25,7 +25,7 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li><a href="../ClientFiles/home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li class="active"><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                    <li class="active"><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
                     <li><a href="../ClientFiles/stats.php"><span class="glyphicon glyphicon-stats"></span> Statistics</a></li>
                     <li><a href="../ClientFiles/cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a></li>
                 </ul>

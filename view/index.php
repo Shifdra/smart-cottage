@@ -11,26 +11,10 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-            
-            include '../LogicFiles/Catalogue.php';
-            $catalogue = new Catalogue();
-            $retailerNames = $catalogue->getRetailerNames();
-            foreach ($retailerNames as $name) {
-                echo $name . '<br>';
-            }
-            $storeNames = $catalogue->getStoreNamesByRetailer('Sobeys');
-            foreach ($retailerNames as $name) {
-                echo $name . '<br>';
-            }
-            $categoryNames = $catalogue->getCategoryNames();
-            foreach ($retailerNames as $name) {
-                echo $name . '<br>';
-            }
-            $itemNames = $catalogue->getItemNamesByCategory('meat');
-            foreach ($retailerNames as $name) {
-                echo $name . '<br>';
-            }
-            
+            include '../LogicFiles/AccountAndUser.php';
+            include '../LogicFiles/OrderAndOrderItem.php';
+            $order = new Order(57);
+            echo $order->getOrderID();
         ?>
     </body>
 </html>

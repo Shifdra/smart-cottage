@@ -25,7 +25,7 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li><a href="../ClientFiles/home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                    <li><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
                     <li class="active"><a href="../ClientFiles/stats.php"><span class="glyphicon glyphicon-stats"></span> Statistics</a></li>
                     <li><a href="../ClientFiles/cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a></li> 
                 </ul>
@@ -37,7 +37,18 @@
     </nav>
     
     <div class="container">
-        <p>GRAPHS</p>
+        <form class="form-horizontal" role="form" action="../ClientFiles/ProcessStatsRequest.php" method="post">
+            <div class="col-md-6">
+                <h3>Choose View</h3>
+                <select class="form-control" id="sel-store" name="sel-store"></select>
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Choose Friend</h3>
+                <select multiple class="form-control input-lg" size="5" id="firend-list" name="friend-list"></select>
+                <button type="submit" class="btn btn-default top-space" id="btn-submit" name="btn-submit">Submit</button>           
+            </div>
+        </form>
     </div>
 </body>
 </html>

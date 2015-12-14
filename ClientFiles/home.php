@@ -23,7 +23,7 @@
                     <li class="active"><a href="../ClientFiles/home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                     <?php
                     if (isset($_SESSION["loggedin"])) {
-                        echo "<li><a href='../ClientFiles/profile.php'><span class='glyphicon glyphicon-user'></span> Profile</a></li>
+                        echo "<li><a href='../ClientFiles/profile.php'><span class='glyphicon glyphicon-user'></span> Friends</a></li>
                         <li><a href='../ClientFiles/stats.php'><span class='glyphicon glyphicon-stats'></span> Statistics</a></li>
                         <li><a href='../ClientFiles/cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> My Cart</a></li>";
                     }

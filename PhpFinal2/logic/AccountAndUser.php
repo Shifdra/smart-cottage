@@ -1,8 +1,8 @@
 <?php
 
-require_once '../DatabaseFiles/DBSelect.php';
-require_once '../DatabaseFiles/DBInsert.php';
-require_once '../DatabaseFiles/DBDrop.php';
+require_once '../database/DBSelect.php';
+require_once '../database/DBInsert.php';
+require_once 'OrderAndOrderItem.php';
 require_once 'Table.php';
 
 class Account {
@@ -134,17 +134,6 @@ class User extends Account {
        
     }
     
-    public function addNewFriend($friendName) {
-        $insertor = new DBInsert('localhost', 'root', '', 'mydb');
-        $insertor->insertNewFriends($this->getUsername(), $friendName);
-    }
-    
-    public function removeFriend($friendName) {
-        $dropper = new DBDrop('localhost', 'root', '', 'mydb');
-        $dropper->dropFromFriends($this->getUsername(), $friendName);        
-        $dropper->dropFromFriends($friendName, $this->getUsername());        
-    }
-    
     public function __destruct() {
         parent::__destruct();
         $this->password = null;
@@ -174,7 +163,7 @@ class User extends Account {
     public function createNewOrder($storeName) {
         $insertor = new DBInsert('localhost', 'root', '', 'mydb');
         $orderID = $insertor->insertNewOrder($this->getUsername(), $storeName);
-        return $orderID;
+        return new Order($storeName, $orderID);
     }
     
     public function getUserFriends() {
@@ -183,13 +172,13 @@ class User extends Account {
     
     public function getAccountAvgByRetailerName($retailerName) {
         $result = parent::getAccountAvgByRetailerName($retailerName);
-        $columns = array('Retailer', 'Average Retailer Price');
+        $columns = array('Retailer', 'Average Spent');
         return new Table($columns, $result);
     }
     
     public function getAccountRetailerAverages() {
         $result = parent::getAccountRetailerAverages();
-        $columns = array('Retailer', 'Average Retailer Price');
+        $columns = array('Retailer', 'Average Spent');
         return new Table($columns, $result);
     }
     
@@ -207,55 +196,51 @@ class User extends Account {
     
     public function getAccountAvgByStoreName($storeName) {
         $result = parent::getAccountAvgByStoreName($storeName);
-        $columns = array('Store', 'Average Store Price');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountStoreAverages() {
         $result = parent::getAccountStoreAverages();
-        $columns = array('Store', 'Average Store Price');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountStorePurchases() {
         $result = parent::getAccountStorePurchases();
-        $columns = array('Store', 'Average Store Price');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountStoreQuantityAndPriceTotals() {
         $result = parent::getAccountStoreQuantityAndPriceTotals();
-        $columns = array('Store', 'Item Name', 'Total Quantity', 'Total Spent');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountAvgByProductName($productName) {
         $result = parent::getAccountAvgByProductName($productName);
-        $columns = array('Product', 'Average Item Price');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountProductAverages() {
         $result = parent::getAccountProductAverages();
-        $columns = array('Product', 'Average Item Price');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountProductPurchases() {
         $result = parent::getAccountProductPurchases();
-        $columns = array('Item Name', 'Total Quantity', 'Price', 'Total Spent');
+        $columns = array();
         return new Table($columns, $result);
     }
     
     public function getAccountProductQuantityAndPriceTotals() {
-        $result = parent::getAccountProductQuantityAndPriceTotals();
-        $columns = array('Item Name', 'Total Quantity', 'Total Price');
+        $result = parent::getAccountProductPurchases();
+        $columns = array();
         return new Table($columns, $result);
     }
-    
-    
-    
-    
     
     
     

@@ -14,7 +14,6 @@
         //access add or remove friend method
         if (isset($_POST["btn-add-friend"])) {
             //add friend
-            
         } else if (isset($_POST["btn-rmv-friend"])) {
             //remove friend
         }

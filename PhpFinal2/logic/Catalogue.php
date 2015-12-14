@@ -12,21 +12,23 @@
  * @author Cody
  */
 
-require_once '../DatabaseFiles/DBSelect.php';
+require_once '../database/DBSelect.php';
 
 class Catalogue {
+    
     
     public function getRetailerNames() {
         $selector = new DBSelect('localhost', 'root', '', 'mydb');
         $result = $selector->selectRetailerNames();
         $selector = null;
         $names = array();
+        $names = array();
         foreach ($result as $row) {
             foreach ($row as $column) {
                 array_push($names, $column);
             }
         }
-        return $names;
+        return $names;;
     }
     
     public function getStoreNamesByRetailer($retailerName) {
@@ -67,5 +69,9 @@ class Catalogue {
         }
         return $names;
     }
+    
+    
+    
 }
+
 ?>

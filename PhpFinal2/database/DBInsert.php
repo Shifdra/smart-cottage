@@ -24,13 +24,13 @@ class DBInsert extends DBManager {
         return $statement->execute();
     }
     
-    public function insertNewFriends($username, $friendName) {
+    public function insertNewFriends($username, $friend_name) {
         global $insertNewFriends;
-        $statement = $this->prepareStatement($insertNewFriends);
+        $statement = $this->prepareStatement($insertNewUser);
         $statement->bindParam(':username1', $username);
-        $statement->bindParam(':friendName1', $friendName);
-        $statement->bindParam(':username2', $friendName);
-        $statement->bindParam(':friendName2', $username);
+        $statement->bindParam(':friend_name1', $friend_name);
+        $statement->bindParam(':username2', $friend_name);
+        $statement->bindParam(':friend_name2', $username);
         return $statement->execute();
     }
     
@@ -40,7 +40,7 @@ class DBInsert extends DBManager {
         $statement = $this->dbconn->getConnection()->prepare($insertNewOrder);
         $statement->bindParam(':username', $username);
         $statement->bindParam(':storeName', $storeName);
-        $statement->execute();
+        echo $statement->execute();
         $orderID = $this->dbconn->getConnection()->lastInsertId();
         $this->dbconn->close();
         return $orderID;

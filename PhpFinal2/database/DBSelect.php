@@ -13,6 +13,33 @@ class DBSelect extends DBManager {
         $this->dbconn = null;
     }
     
+    public function selectAvgByRetailerName($retailerName) {
+        global $selectAvgByRetailerName;
+        $statement = $this->prepareStatement($selectAvgByRetailerName);
+        $statement->bindParam(':retailerName',$retailerName);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectRetailerAverages() {
+        global $selectRetailerAverages;
+        $statement = $this->prepareStatement($selectRetailerAverages);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectAccountAvgByRetailerName($username, $retailerName) {
+        global $selectAccountAvgByRetailerName;
+        $statement = $this->prepareStatement($selectAccountAvgByRetailerName);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':retailerName', $retailerName);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
     public function selectAccountRetailerAverages($username) {
         global $selectAccountRetailerAverages;
         $statement = $this->prepareStatement($selectAccountRetailerAverages);
@@ -40,6 +67,33 @@ class DBSelect extends DBManager {
         }
     }
     
+    public function selectAvgByStoreName($storeName) {
+        global $selectAvgByStoreName;
+        $statement = $this->prepareStatement($selectAvgByStoreName);
+        $statement->bindParam(':storeName');
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectStoreAverages() {
+        global $selectStoreAverages;
+        $statement = $this->prepareStatement($selectStoreAverages);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectAccountAvgByStoreName($username, $storeName) {
+        global $selectAccountAvgByStoreName;
+        $statement = $this->prepareStatement($selectAccountAvgByStoreName);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':storeName', $storeName);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
     public function selectAccountStoreAverages($username) {
         global $selectAccountStoreAverages;
         $statement = $this->prepareStatement($selectAccountStoreAverages);
@@ -62,6 +116,23 @@ class DBSelect extends DBManager {
         global $selectAccountStoreQuantityAndPriceTotals;
         $statement = $this->prepareStatement($selectAccountStoreQuantityAndPriceTotals);
         $statement->bindParam(':username', $username);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectAvgByProductName($productName) {
+        global $selectAvgByProductName;
+        $statement = $this->prepareStatement($selectAvgByProductName);
+        $statement->bindParam(':productName', $productName);
+        if ($statement->execute()) {
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+    
+    public function selectProductAverages() {
+        global $selectProductAverages;
+        $statement = $this->prepareStatement($selectProductAverages);
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -137,28 +208,6 @@ class DBSelect extends DBManager {
         }
     }
     
-    public function selectItemIDByItemName($itemName) {
-        global $selectItemIDByItemName;
-        $statement = $this->prepareStatement($selectItemIDByItemName);
-        $statement->bindParam(':itemName', $itemName);
-        if ($statement->execute()) {
-            $row = $statement->fetch();
-            return $row['item_id'];
-        } 
-        
-    }
-    
-    public function selectStoreIDByStoreName($storeName) {
-        global $selectStoreIDByStoreName;
-        $statement = $this->prepareStatement($selectStoreIDByStoreName);
-        $statement->bindParam(':storeName', $storeName);
-        if ($statement->execute()) {
-            $row = $statement->fetch();
-            return $row['store_id'];
-        } 
-        
-    }
-    
     public function selectRetailerNames() {
         global $selectRetailerNames;
         $statement = $this->prepareStatement($selectRetailerNames);
@@ -190,16 +239,6 @@ class DBSelect extends DBManager {
         $statement->bindParam(':categoryName', $categoryName);
         if ($statement->execute()) {
             return $statement->fetchAll(PDO::FETCH_ASSOC);
-        }
-    }
-    
-    public function selectStoreNameByOrderID($orderID) {
-        global $selectStoreNameByOrderID;
-        $statement = $this->prepareStatement($selectStoreNameByOrderID);
-        $statement->bindParam(':orderID', $orderID);
-        if ($statement->execute()) {
-            $row = $statement->fetch();
-            return $row['store_name'];
         }
     }
     

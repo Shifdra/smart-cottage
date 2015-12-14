@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="../ClientFiles/customstyle.css">
     <title>Cart-Life</title>
     <?php
+    include '../LogicFiles/Catalogue.php';
+    
+    $catalogue = new Catalogue();
+    
     session_start();
     if (!isset($_SESSION["loggedin"])) {
         header("location: ../ClientFiles/home.php");
@@ -26,7 +30,7 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li><a href="../ClientFiles/home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                    <li><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                    <li><a href="../ClientFiles/profile.php"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
                     <li><a href="../ClientFiles/stats.php"><span class="glyphicon glyphicon-stats"></span> Statistics</a></li>
                     <li class="active"><a href="../ClientFiles/cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> My Cart</a></li> 
                 </ul>
@@ -45,17 +49,10 @@
                     <select class="form-control" id="sel-retail" name="sel-retail">
                         <option selected disabled hidden>Select Retailer</option>
                         <?php
-                        include '../LogicFiles/Catalogue.php';
-                        //$catalogue = new Catalogue();
-                        //$retailerNames = $catalogue->getRetailerNames();
-                        //$i = 1;
-                        //foreach ($retailerNames as $name) {
-                            //echo "<option value='".$i."'>".$name."</option>";
-                            //$i++;
-                        //}
-                        echo "<option value='1'>Value 1</option>
-                        <option value='2'>Value 2</option>
-                        <option value='3'>Value 3</option>";
+                        $retailerNames = $catalogue->getRetailerNames();
+                        foreach ($retailerNames as $name) {
+                            echo "<option value='".$name."'>".$name."</option>";
+                        }
                         ?>
                     </select>
                 </div>
@@ -63,9 +60,12 @@
                     <select class="form-control" id="sel-store" name="sel-store" disabled>
                         <option selected disabled hidden>Select Store</option>
                         <?php
-                        echo "<option value='1'>Value 1</option>
-                        <option value='2'>Value 2</option>
-                        <option value='3'>Value 3</option>";
+                        if (isset($_SESSION["retailselected"])) {
+                            $storeNames = $catalogue->getStoreNamesByRetailer($_SESSION["retailselected"]);
+                            foreach ($storeNames as $name) {
+                                echo "<option value='".$name."'>".$name."</option>";
+                            }
+                        }
                         ?>
                     </select>
                 </div>
@@ -73,19 +73,25 @@
                     <select class="form-control" id="sel-cat" name="sel-cat" disabled>
                         <option selected disabled hidden>Select Category</option>
                         <?php
-                        echo "<option value='1'>Value 1</option>
-                        <option value='2'>Value 2</option>
-                        <option value='3'>Value 3</option>";
+                        if (isset($_SESSION["storeselected"])) {
+                            $categoryNames = $catalogue->getCategoryNames();
+                            foreach ($categoryNames as $name) {
+                                echo "<option value='".$name."'>".$name."</option>";
+                            }
+                        }
                         ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="sel-item" name="sel-item" disabled>
+                    <select class="form-control" id="sel-item" name="sel-item" disabled >
                         <option selected disabled hidden>Select Item</option>
                         <?php
-                        echo "<option value='1'>Value 1</option>
-                        <option value='2'>Value 2</option>
-                        <option value='3'>Value 3</option>";
+                        if (isset($_SESSION["catselected"])) {
+                            $itemNames = $catalogue->getItemNamesByCategory($_SESSION["catselected"]);
+                            foreach ($itemNames as $name) {
+                                echo "<option value='".$name."'>".$name."</option>";
+                            }
+                        }
                         ?>
                     </select>
                 </div>
@@ -104,8 +110,21 @@
             
             <div class="col-md-6">
                 <h3>Your Cart</h3>
-                <select multiple class="form-control input-lg" size="15" id="sel-cart"></select>
-                <button type="submit" class="btn btn-default top-space" id="btn-remove-item" name="btn-rmv-item">Remove Item</button>
+                <select multiple class="form-control input-lg" size="15" id="sel-cart" name="sel-cart[]">
+                    <?php
+                    //if there are order items in the session arrays then populate the select box
+                    if (isset($_SESSION["orderitemsel"][0])) {
+                        $i = 0;
+                        foreach($_SESSION["orderitemsel"] as $val) {
+                            echo "<option value='" . $i . "'>" . $_SESSION["orderquantity"][$i] . " "
+                            . $_SESSION["orderitemsel"][$i] . "(s) @ $" . $_SESSION["orderprice"][$i] . " each</option>";
+                            $i++;
+                        }
+                    }
+                    ?>
+                </select>
+                <button type="submit" class="btn btn-default top-space" id="btn-remove-item" name="btn-rmv-item">Remove Item From Cart</button>
+                <button type="submit" class="btn btn-default top-space" id="btn-commit" name="btn-commit">Commit Items</button>
             </div>
         </form>
     </div>
